@@ -68,7 +68,7 @@ function ProductDetail() {
             </Grid>
           </Grid>
         </Paper>
-        <ProductTabs commentsData={commentsData}/>
+        <ProductTabs commentsData={commentsData} product={product} />
       </Container>
     </Box>
   );

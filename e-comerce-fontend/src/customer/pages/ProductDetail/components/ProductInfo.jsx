@@ -47,13 +47,13 @@ function ProductInfo({ product = {} }) {
         {productName}
       </Typography>
 
-      <Typography
+      {/* <Typography
         variant="body2"
         className={classes.description}
         style={{ margin: "5px 0px" }}
       >
         {description}
-      </Typography>
+      </Typography> */}
 
       <Box className={classes.priceBox}>
         <Box component="span" className={classes.salePrice}>

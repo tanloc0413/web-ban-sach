@@ -106,7 +106,7 @@ public class VNPAYController {
 			orderDTO.setCustomerEmail(customerEmail);
 			orderDTO.setCustomerMobile(customerMobile);
 			orderDTO.setShippingAddress(shippingAddress);
-			orderDTO.setTotalPrice(Integer.parseInt(totalPrice));
+			orderDTO.setTotalPrice(Integer.parseInt(totalPrice)/100);
 			orderDTO.setPaymentTime(paymentTime);
 			orderDTO.setTransactionId(Integer.parseInt(transactionId));
 			orderDTO.setPaymentStatus(paymentStatus);

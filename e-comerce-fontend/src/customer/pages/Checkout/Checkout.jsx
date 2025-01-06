@@ -19,6 +19,7 @@ import {
 } from "../../../app/Selectors";
 import { formatPrice } from "../../../utils";
 import paymentApi from "../../../api/paymentApi";
+import {orderService} from "../../../services/orderService";
 import HeaderAcc from "../User/Components/HeaderAcc";
 import { removeCart } from "../../../app/CartSlice";
 Checkout.propTypes = {};
@@ -42,43 +43,45 @@ function Checkout(props) {
   const handleSubmitPayment = async (formData) => {
     if (formData.paymentMethod === "COD") {
       try {
-        const orderItems = cart
-        .map((product) => `${product.id},${product.quantity}`)
-        .join(";");
-            // Create orderInfo string
-            const orderInfo = `${formData.userId};${formData.customerName};${formData.customerEmail};${formData.customerMobile};${formData.address},${formData.city}, ${formData.district}`;
-
-            // Combine orderInfo and orderItems properly
-            const combinedOrderInfo = `${orderInfo} orderItems:${orderItems}`;
-            console.log(combinedOrderInfo);
-        // Call API to create COD order
-        const response = await paymentApi.createOrder({
-          orderInfo: combinedOrderInfo,
+        const orderItems = cart.map((product) => ({
+          productId: product.id,
+          quantity: product.quantity,
+        }));
+  
+        const orderInfo = {
+          customerName: formData.customerName,
+          customerEmail: formData.customerEmail,
+          customerMobile: formData.customerMobile,
+          shippingAddress: `${formData.address}, ${formData.city}, ${formData.district}`,
           totalAmount: orderTotal,
-          paymentMethod: "COD"
-        });
-
+          orderItems: orderItems,
+          userId: formData.userId, // Assuming the userId is part of the form data
+        };
+  
+        // Send orderInfo to backend API
+        const response = await orderService.createOrder(orderInfo);
+  
         if (response.success) {
           // Clear cart
           dispatch(removeCart());
-          
+  
           // Navigate to success page with order details
-          navigate('/payment-result', { 
-            state: { 
+          navigate('/payment-result', {
+            state: {
               success: true,
               orderId: response.orderId,
               amount: orderTotal,
-              paymentMethod: 'COD'
-            }
+              paymentMethod: 'COD',
+            },
           });
         }
       } catch (error) {
         console.error("Error creating COD order:", error);
-        navigate('/payment-result', { 
-          state: { 
+        navigate('/payment-result', {
+          state: {
             success: false,
-            error: "Failed to create order"
-          }
+            error: "Failed to create order",
+          },
         });
       }
     }

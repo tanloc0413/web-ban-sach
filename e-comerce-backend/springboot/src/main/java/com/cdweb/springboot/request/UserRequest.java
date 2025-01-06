@@ -12,7 +12,6 @@ public class UserRequest {
     @Size(min = 3, max = 50)
     private String userName;
 
-    @NotNull
     private String password;
 
     private String mobile;

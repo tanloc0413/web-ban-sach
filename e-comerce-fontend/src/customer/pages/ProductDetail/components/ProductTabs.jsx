@@ -41,7 +41,7 @@ function a11yProps(index) {
   };
 }
 
-export default function ProductTabs({commentsData}) {
+export default function ProductTabs({commentsData, product = {}}) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -69,7 +69,7 @@ export default function ProductTabs({commentsData}) {
         >
           <div className="ksp-content p-2 mb-2">
             <h2 className="ksp-title has-text-centered">Mô tả thêm</h2>
-            <div>
+            {/* <div>
               <ul>
                 <li>
                   Đắc Nhân Tâm là một trong những tựa sách self-help nổi tiếng nhất thế giới với hơn 15 triệu bản được bán ra trên toàn cầu. Cuốn sách này được đánh giá là kho tàng kiến thức vô giá và là một nguồn cảm hứng thú vị cho những ai muốn nâng cao kỹ năng giao tiếp, cải thiện khả năng xây dựng mối quan hệ và tìm kiếm thành công trong cuộc sống.
@@ -112,7 +112,14 @@ Khi đã thành công với vai trò là một diễn giả, Dale đã lựa ch�
             </p>
             <p style={{ textAlign: "justify" }}>
             Những điều mà Dale Carnegie muốn truyền tải trong cuốn sách đã dần được chuyển đổi thành những hành động thực tế của độc giả trong cuộc sống đời thực. Có thể nói, Đắc Nhân Tâm không đơn thuần là một cuốn sách để đọc, đó là một tác phẩm truyền cảm hứng kinh điển, là cuốn sách mà khi đọc xong có thể khiến bạn thay đổi để trở nên tốt hơn. 
-            </p>
+            </p> */}
+              <Typography
+        variant="body2"
+ 
+        style={{ margin: "5px 0px" }}
+      >
+        {product.description}
+      </Typography>
           </div>
         </div>
       </CustomTabPanel>

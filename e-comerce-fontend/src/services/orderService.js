@@ -21,5 +21,15 @@ export const orderService = {
   deleteOrder: async (orderId) => {
     const response = await axios.delete(`${API_URL}/${orderId}`);
     return response.data;
+  },
+  
+  createOrder: async (orderData) => {
+    try {
+      const response = await axios.post(`${API_URL}/`, orderData);
+      return response.data;
+    } catch (error) {
+      console.error('Error creating order:', error);
+      throw error; // Optionally re-throw or handle error as needed
+    }
   }
 };
