@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, AppBar, Toolbar, Typography, IconButton } from '@mui/material';
+import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import { Category, ShoppingCart, Person, Receipt, Menu } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,6 +15,11 @@ const AdminLayout = ({ children }) => {
     { text: 'Orders', icon: <Receipt />, path: '/admin/orders' },
     { text: 'Users', icon: <Person />, path: '/admin/users' },
   ];
+
+  const handleLogout = () => {
+    // Logic for logout (e.g., clear user session, tokens, etc.)
+    navigate('/'); // Redirect to the login page
+  };
 
   const drawer = (
     <div>
@@ -42,12 +47,15 @@ const AdminLayout = ({ children }) => {
           >
             <Menu />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Admin Dashboard
           </Typography>
+          <Button color="inherit" onClick={handleLogout}>
+            Đăng Xuất
+          </Button>
         </Toolbar>
       </AppBar>
-      
+
       <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
         <Drawer
           variant="temporary"
@@ -78,7 +86,7 @@ const AdminLayout = ({ children }) => {
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-          marginTop: '64px'
+          marginTop: '64px',
         }}
       >
         {children}
