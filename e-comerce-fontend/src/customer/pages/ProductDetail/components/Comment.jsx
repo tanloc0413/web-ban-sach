@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -8,12 +8,13 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
 import { useMatch } from "react-router-dom";
 import commentApi from "../../../../api/commentApi";
 import { useSelector } from "react-redux";
 import { userid } from "../../../../app/Selectors";
 import useComments from "../../../../hooks/useComments";
+
+// Define the Coment component
 Coment.propTypes = {
   onSubmit: PropTypes.func,
   commentsData: PropTypes.array,
@@ -30,6 +31,8 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+// Comment display component
 const Comment = ({ comment, handleReplyComment }) => (
   <Paper elevation={1} style={{ padding: "16px", marginBottom: "8px" }}>
     <Typography variant="body1">
@@ -43,7 +46,7 @@ const Comment = ({ comment, handleReplyComment }) => (
     </Typography>
     <Button
       style={{ marginTop: "8px" }}
-      onClick={() => handleReplyComment(comment.author,comment.id)}
+      onClick={() => handleReplyComment(comment.author, comment.id)}
     >
       Trả lời
     </Button>
@@ -60,45 +63,46 @@ const Comment = ({ comment, handleReplyComment }) => (
     )}
   </Paper>
 );
+
+// Main component function
 function Coment({ data }) {
   const match = useMatch("/products/:productId");
   const [open, setOpen] = useState(false);
-  const [author, setAuthor] = useState();
+  const [author, setAuthor] = useState("");
   const [question, setQuestion] = useState("");
   const [question1, setQuestion1] = useState("");
   const [error, setError] = useState("");
   const [error1, setError1] = useState("");
-  const userId = useSelector(userid);
+  const userId = useSelector(userid); // Get user ID from state
+  const userInfo = useSelector((state) => state.user.userInfo); // Get user info from state (for name)
   const [commentsData, setCommentsData] = useState(data);
   const [parentId, setParentId] = useState();
-  const {
-    params: { productId },
-  } = match;
+  const { params: { productId } } = match;
 
   const handleClose = () => setOpen(false);
-  const handleReplyComment = async (author,id) => {
+  console.log(userInfo);
+  const handleReplyComment = (author, id) => {
     setOpen(true);
     setAuthor(author);
     setParentId(id);
   };
+
   const handleInputChange = (event) => {
     setQuestion(event.target.value);
     if (event.target.value) {
-      setError(""); // Xóa thông báo lỗi nếu người dùng nhập gì đó
+      setError("");
     }
   };
+
   const handleInputChange1 = (event) => {
     setQuestion1(event.target.value);
     if (event.target.value) {
-      setError1(""); // Xóa thông báo lỗi nếu người dùng nhập gì đó
+      setError1("");
     }
   };
-  // console.log("data: ", data);
-  // setCommentsData(data);
-  // console.log("commentsData: ", commentsData);
 
+  // Submit comment
   const handleSubmitComment = async () => {
-    console.log("coment");
     if (!question.trim()) {
       setError("Câu hỏi không được để trống");
       return;
@@ -112,15 +116,16 @@ function Coment({ data }) {
       productId: productId,
       parentCommentId: "",
       userId: userId,
-      author: "Nguyen Van C",
+      author: userInfo ? userInfo.fullName : "Unknown Author", // Set author's name dynamically
     };
+
     try {
       const res = await commentApi.createComment(commentData);
       if (res.status === "success") {
         try {
           const res = await commentApi.getComments(productId);
-          setCommentsData(res);setQuestion("");
-          console.log("Loi lay ds comments", res);
+          setCommentsData(res);
+          setQuestion("");
         } catch (error) {
           console.log("Loi lay ds comments", error);
         }
@@ -132,8 +137,9 @@ function Coment({ data }) {
       alert("Đã xảy ra lỗi trong quá trình đăng ký");
     }
   };
+
+  // Submit reply comment
   const handleSubmitReplyComment = async () => {
-    console.log("coment");
     if (!question1.trim()) {
       setError1("Câu hỏi không được để trống");
       return;
@@ -145,20 +151,19 @@ function Coment({ data }) {
     const replyCommentData = {
       content: question1,
       productId: productId,
-      parentCommentId: "",
+      parentCommentId: parentId,
       userId: userId,
-      author: "Nguyen Van C",
+      author: userInfo ? userInfo.fullName : "Unknown Author", // Set author's name dynamically for replies
     };
-    console.log("parentId", parentId);
+
     try {
-      const res = await commentApi.replyComment(parentId,replyCommentData);
+      const res = await commentApi.replyComment(parentId, replyCommentData);
       if (res.status === "success") {
         try {
           const res = await commentApi.getComments(productId);
-          setCommentsData(res);setQuestion1("");
+          setCommentsData(res);
           setOpen(false);
           setQuestion1("");
-          console.log("Loi lay ds comments", res);
         } catch (error) {
           console.log("Loi lay ds comments", error);
         }
@@ -170,6 +175,7 @@ function Coment({ data }) {
       alert("Đã xảy ra lỗi trong quá trình đăng ký");
     }
   };
+
   return (
     <Box padding="24px 0px">
       <Box>
@@ -222,7 +228,7 @@ function Coment({ data }) {
               onChange={handleInputChange1}
               error={!!error1}
               helperText={error1}
-              sx={{marginTop:'5px'}}
+              sx={{ marginTop: '5px' }}
             />
             <Button
               variant="contained"
