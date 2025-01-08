@@ -10,6 +10,7 @@ import {
   Snackbar,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
+
 import { updateUserInfo } from "../../../../app/UserSlice";
 import { userService } from "../../../../services/userService";
 
@@ -17,6 +18,7 @@ const AccountProfile = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.userInfo);
   const [isLoading, setIsLoading] = useState(false);
+
   const [error, setError] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -28,6 +30,7 @@ const AccountProfile = () => {
     password: "",
     mobile: user?.mobile || "",
   });
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -165,6 +168,7 @@ const AccountProfile = () => {
             </Button>
           </Grid>
         </Grid>
+        
       </Box>
 
       {/* Snackbar for error or success messages */}
