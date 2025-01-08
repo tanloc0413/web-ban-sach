@@ -13,6 +13,22 @@
     background-color: #3487df!important;
 }
 
+.header_accounts, .css-1guk29, .header_btn-signup {
+    height: 100%;
+    display: flex;
+    justify-content: center!important;
+    align-items: center!important;
+}
+
+
+.header_btn-signin, .header_btn-signup {
+    height: 2.5rem;
+    width: 7rem;
+    border-radius: 5px;
+    border: 1.5px solid #fff;
+    color: #fff;
+}
+
 #header_blk {
     width: 100%;
     display: flex;

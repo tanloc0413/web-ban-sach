@@ -93,19 +93,19 @@ const OrderList = () => {
 
   return (
     <div>
-      <h2>Orders Management</h2>
+      <h2>Quản lý đơn hàng</h2>
       
       {/* Orders Table */}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Order ID</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Payment Status</TableCell>
-              <TableCell>Fulfillment Status</TableCell>
-              <TableCell>Total</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>ID Đơn Hàng</TableCell>
+              <TableCell>Ngày tạo đơn hàng</TableCell>
+              <TableCell>Trạng thái thanh toán</TableCell>
+              <TableCell>Trạng thái đơn hàng</TableCell>
+              <TableCell>Tổng giá</TableCell>
+              <TableCell>Hành động</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -140,30 +140,30 @@ const OrderList = () => {
       {isStatusModalOpen && selectedOrder && (
         <div style={styles.modal} onClick={() => setStatusModalOpen(false)}>
           <div style={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <h3>Update Order Status</h3>
+            <h3>Cập nhật trạng thái đơn hàng</h3>
             <select 
               style={styles.select}
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
-              <option value="">Select Status</option>
-              <option value="1">Processing</option>
-              <option value="2">Delivered</option>
-              <option value="3">Cancelled</option>
-              <option value="4">Shipping</option>
+              <option value="">Chọn trạng thái</option>
+              <option value="1">Đang xử lý</option>
+              <option value="2">Hoàn thành</option>
+              <option value="3">Hủy</option>
+              <option value="4">Đang vận chuyển</option>
             </select>
             <div style={styles.buttonGroup}>
               <button 
                 style={{ ...styles.button, backgroundColor: '#f0f0f0' }}
                 onClick={() => setStatusModalOpen(false)}
               >
-                Cancel
+                Hủy
               </button>
               <button
                 style={{ ...styles.button, backgroundColor: '#1976d2', color: 'white' }}
                 onClick={() => handleStatusUpdate(selectedOrder.id, status)}
               >
-                Update
+                Cập nhật
               </button>
             </div>
           </div>
@@ -174,20 +174,20 @@ const OrderList = () => {
       {isDeleteModalOpen && selectedOrder && (
         <div style={styles.modal} onClick={() => setDeleteModalOpen(false)}>
           <div style={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <h3>Confirm Delete</h3>
-            <p>Are you sure you want to delete order {selectedOrder.id}?</p>
+            <h3>Xác nhận xóa</h3>
+            <p>Bạn có muốn hủy đơn hàng này {selectedOrder.id}?</p>
             <div style={styles.buttonGroup}>
               <button 
                 style={{ ...styles.button, backgroundColor: '#f0f0f0' }}
                 onClick={() => setDeleteModalOpen(false)}
               >
-                Cancel
+                Hủy
               </button>
               <button
                 style={{ ...styles.button, backgroundColor: '#dc3545', color: 'white' }}
                 onClick={() => handleDelete(selectedOrder.id)}
               >
-                Delete
+                Xóa
               </button>
             </div>
           </div>

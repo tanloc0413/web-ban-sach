@@ -131,7 +131,7 @@ const UserList = () => {
 
   return (
     <div>
-      <h2>User Management</h2>
+      <h2>Quản lý người dùng</h2>
       
       {/* Users Table */}
       <TableContainer component={Paper}>
@@ -144,7 +144,7 @@ const UserList = () => {
               <TableCell>Mobile</TableCell>
               <TableCell>Role</TableCell>
               <TableCell>Created At</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -230,13 +230,13 @@ const UserList = () => {
                   style={{ ...styles.button, backgroundColor: '#f0f0f0' }}
                   onClick={() => setFormOpen(false)}
                 >
-                  Cancel
+                  Hủy
                 </button>
                 <button
                   type="submit"
                   style={{ ...styles.button, backgroundColor: '#1976d2', color: 'white' }}
                 >
-                  Save Changes
+                  Lưu Thay Đổi
                 </button>
               </div>
             </form>
@@ -248,20 +248,20 @@ const UserList = () => {
       {isDeleteModalOpen && (
         <div style={styles.modal} onClick={() => setDeleteModalOpen(false)}>
           <div style={styles.modalContent} onClick={e => e.stopPropagation()}>
-            <h3>Delete User</h3>
-            <p>Are you sure you want to delete user {selectedUser?.email}?</p>
+            <h3>Xóa người dùng</h3>
+            <p>Bạn có muốn xóa người dùng này {selectedUser?.email}?</p>
             <div style={styles.buttonGroup}>
               <button
                 style={{ ...styles.button, backgroundColor: '#f0f0f0' }}
                 onClick={() => setDeleteModalOpen(false)}
               >
-                Cancel
+                Hủy
               </button>
               <button
                 style={{ ...styles.button, backgroundColor: '#dc3545', color: 'white' }}
                 onClick={handleDeleteConfirm}
               >
-                Delete
+                Xóa
               </button>
             </div>
           </div>

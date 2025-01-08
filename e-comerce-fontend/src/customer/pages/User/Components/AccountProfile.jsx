@@ -91,12 +91,12 @@ const AccountProfile = () => {
   return (
     <Container>
       <Box p={3}>
-        <Typography variant="h4" gutterBottom>
-          Hồ sơ
+        <Typography variant="h4" gutterBottom style={{paddingBottom: '15px'}}>
+        Thông tin tài khoản
         </Typography>
-        <Typography variant="subtitle1" gutterBottom padding={1}>
-          Cập nhật thông tin
-        </Typography>
+        {/* <Typography variant="subtitle1" gutterBottom padding={1}>
+          Thông tin tài khoản
+        </Typography> */}
 
         <Grid container spacing={3}>
           <Grid item xs={6}>
@@ -130,7 +130,7 @@ const AccountProfile = () => {
               variant="outlined"
             />
           </Grid>
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <TextField
               fullWidth
               label="Mật khẩu"
@@ -141,7 +141,7 @@ const AccountProfile = () => {
               variant="outlined"
               placeholder="Nhập mật khẩu mới nếu muốn thay đổi"
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={6}>
             <TextField
               fullWidth
@@ -159,6 +159,7 @@ const AccountProfile = () => {
               color="primary"
               onClick={handleSaveChanges}
               disabled={isLoading}
+              style={{display: 'none'}}
             >
               {isLoading ? <CircularProgress size={24} /> : "Lưu thay đổi"}
             </Button>

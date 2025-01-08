@@ -31,6 +31,8 @@ import {
 import { useContext } from "react";
 import {logOut} from "../../../app/UserSlice";
 import "./styles.css";
+import Button from '@mui/material/Button';
+
 
 export default function Header() {
   const navigate = useNavigate();
@@ -292,9 +294,17 @@ export default function Header() {
             </IconButton>
             {console.log('isAuthenticated',isAuthenticated)}
             {!isAuthenticated ? (
-              <IconButton onClick={handleClickAccount}>
-                <PermIdentityIcon sx={{ color: "white" }} />
-              </IconButton>
+              <div className="header_accounts">
+                <button onClick={handleClickAccount} style={{marginLeft: "30px"}} className="header_btn-signin">
+                  Đăng nhập
+                </button>
+                <a href="/sign-up" style={{marginLeft: "10px"}} className="header_btn-signup">
+                  Đăng ký
+                </a>
+              </div>
+              // <IconButton onClick={handleClickAccount}>
+              //   <PermIdentityIcon sx={{ color: "white" }} />
+              // </IconButton>
             ) : (
               <Tooltip title="Cài đặt tài khoản">
                 <IconButton

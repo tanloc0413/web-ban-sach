@@ -10,10 +10,10 @@ const AdminLayout = ({ children }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const menuItems = [
-    { text: 'Categories', icon: <Category />, path: '/admin/categories' },
-    { text: 'Products', icon: <ShoppingCart />, path: '/admin/products' },
-    { text: 'Orders', icon: <Receipt />, path: '/admin/orders' },
-    { text: 'Users', icon: <Person />, path: '/admin/users' },
+    { text: 'Thể loại sách', icon: <Category />, path: '/admin/categories' },
+    { text: 'Sách', icon: <ShoppingCart />, path: '/admin/products' },
+    { text: 'Đơn hàng', icon: <Receipt />, path: '/admin/orders' },
+    { text: 'Tài khoản', icon: <Person />, path: '/admin/users' },
   ];
 
   const drawer = (
