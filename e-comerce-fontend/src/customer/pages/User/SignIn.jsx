@@ -73,6 +73,7 @@ export default function SignIn() {
 
     try {
       const res = await userApi.signIn(signInData);
+
       if (res.message === "Signin Success") {
         const userInfor = ({
            id: res.id,
@@ -80,13 +81,19 @@ export default function SignIn() {
            userName: res.userName,
            fullName: res.fullName,
            mobile: res.mobile,
+           role: res.role,
            jwt: res.jwt
         });
         const action = logIn(userInfor);
         // console.log('action:',action)
         dispatch(action);
 
+      // Navigate based on the user's role
+      if (res.role === "ROLE_ADMIN") {
+        navigate("/admin/categories");
+      } else {
         navigate("/");
+      }
       } else {
         alert("Đăng nhập thất bại: " + res.message);
       }

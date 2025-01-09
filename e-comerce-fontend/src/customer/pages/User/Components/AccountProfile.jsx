@@ -54,38 +54,33 @@ const AccountProfile = () => {
   const handleSaveChanges = async () => {
     const validationError = validateForm();
     if (validationError) {
-    
       setSnackbarMessage(validationError);
       setSnackbarOpen(true);
       return;
     }
-
-    const changedFields = {};
-    Object.keys(formData).forEach((key) => {
-      if (formData[key] !== user?.[key] && formData[key] !== "") {
-        changedFields[key] = formData[key];
-      }
-    });
-
-    if (Object.keys(changedFields).length > 0) {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const updatedUser = await userService.updateUser(user.id, changedFields);
-        //dispatch(updateUserInfo(updatedUser));
-        console.log(updatedUser);
-        setSnackbarMessage("Cập nhật hồ sơ thành công.");
-        setSnackbarOpen(true);
-      } catch (err) {
-        setSnackbarMessage(err.response?.data?.message || "Không thể cập nhật hồ sơ");
-        setSnackbarOpen(true);
-        console.error("Error updating profile:", err);
-      } finally {
-        setIsLoading(false);
-      }
+  
+    setIsLoading(true);
+    setError(null);
+  
+    try {
+      // Send the entire formData object
+      const updatedUser = await userService.updateUser(user.id, formData);
+  
+      console.log(updatedUser); // Log the updated user information
+      setSnackbarMessage("Cập nhật hồ sơ thành công.");
+      setSnackbarOpen(true);
+  
+      // Optionally update the Redux store or local state
+      // dispatch(updateUserInfo(updatedUser));
+    } catch (err) {
+      setSnackbarMessage(err.response?.data?.message || "Không thể cập nhật hồ sơ");
+      setSnackbarOpen(true);
+      console.error("Error updating profile:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
+  
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
