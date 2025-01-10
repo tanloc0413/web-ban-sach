@@ -9,14 +9,15 @@ const AdminLayout = ({ children }) => {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   // Get the user's role from Redux store or any state management
-  const user = useSelector((state) => state.user); // Assuming user state contains role information
+  const user = useSelector((state) => state.user.userInfo);
   const role = user?.role;
 
   useEffect(() => {
+    console.log(user);
     // Redirect to the user page if the role is not admin
-    if (role !== 'ROLE_ADMIN') {
-      navigate('/user');
-    }
+    // if (role !== 'ROLE_ADMIN') {
+    //   navigate('/user');
+    // }
   }, [role, navigate]);
 
   const menuItems = [
