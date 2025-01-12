@@ -40,12 +40,7 @@ function Sidebar({ filters, onMenuClick }) {
         ))}
       </List>
 
-      {/* Button to navigate to admin */}
-      <Box mt={2} textAlign="center">
-        <Button variant="contained" color="primary" onClick={handleNavigateToAdmin}>
-          Go to Admin
-        </Button>
-      </Box>
+
     </Box>
   );
 }

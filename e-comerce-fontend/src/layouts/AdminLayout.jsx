@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
 import { Category, ShoppingCart, Person, Receipt, Menu } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 const drawerWidth = 240;
 
 const AdminLayout = ({ children }) => {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  // Get the user's role from Redux store or any state management
+  const user = useSelector((state) => state.user.userInfo);
+  const role = user?.role;
+
+  useEffect(() => {
+    console.log(user);
+    // Redirect to the user page if the role is not admin
+    // if (role !== 'ROLE_ADMIN') {
+    //   navigate('/user');
+    // }
+  }, [role, navigate]);
 
   const menuItems = [
     { text: 'Thể loại sách', icon: <Category />, path: '/admin/categories' },

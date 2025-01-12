@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cdweb.springboot.entities.User;
@@ -16,7 +17,8 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserRepository userRepository;
-	
+	  @Autowired
+    private PasswordEncoder passwordEncoder;
 	// @Override
 	// public User getUserById(Long userld) {
 	// 	// TODO Auto-generated method stub
@@ -56,20 +58,34 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserResponse updateUser(Long id, UserRequest userRequest) {
         // Find the existing user
-        User existingUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     
         // Update the fields
-        existingUser.setEmail(userRequest.getEmail());
-        existingUser.setUserName(userRequest.getUserName());
-    
-        // Only update password if it's not null
-        if (userRequest.getPassword() != null) {
-            existingUser.setPassword(userRequest.getPassword());  
+        if (userRequest.getEmail() != null) {
+            existingUser.setEmail(userRequest.getEmail());
         }
     
-        existingUser.setMobile(userRequest.getMobile());
-        existingUser.setFullName(userRequest.getFullName());
-        existingUser.setRole(userRequest.getRole());
+        if (userRequest.getUserName() != null) {
+            existingUser.setUserName(userRequest.getUserName());
+        }
+    
+        // Only update password if it's not null or empty
+        if (userRequest.getPassword() != null && !userRequest.getPassword().isEmpty()) {
+            existingUser.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        }
+    
+        if (userRequest.getRole() != null) {
+            existingUser.setRole(userRequest.getRole());
+        }
+    
+        if (userRequest.getMobile() != null) {
+            existingUser.setMobile(userRequest.getMobile());
+        }
+    
+        if (userRequest.getFullName() != null) {
+            existingUser.setFullName(userRequest.getFullName());
+        }
     
         // Save the updated user and return the response
         User updatedUser = userRepository.save(existingUser);

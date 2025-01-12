@@ -7,11 +7,11 @@ public class AuthResponse {
 	private String userName;
 	private String fullName;
 	private String mobile;
-//	private String role;
+	private String role;
 	private String jwt;
 	private String message;
 
-	public AuthResponse(Long id, String email, String userName, String fullName, String mobile, String jwt,
+	public AuthResponse(Long id, String email, String userName, String fullName, String mobile, String role, String jwt,
 			String message) {
 		super();
 		this.id = id;
@@ -19,7 +19,7 @@ public class AuthResponse {
 		this.userName = userName;
 		this.fullName = fullName;
 		this.mobile = mobile;
-//		this.role = role;
+		this.role = role;
 		this.jwt = jwt;
 		this.message = message;
 	}
@@ -68,12 +68,12 @@ public class AuthResponse {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-//	public String getRole() {
-//		return role;
-//	}
-//	public void setRole(String role) {
-//		this.role = role;
-//	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	
 	
 }
