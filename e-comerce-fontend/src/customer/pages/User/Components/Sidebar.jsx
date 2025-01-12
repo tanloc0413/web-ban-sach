@@ -26,7 +26,7 @@ function Sidebar({ filters, onMenuClick }) {
   };
 
   const handleNavigateToAdmin = () => {
-    navigate("/admin"); // Navigate to /admin
+    navigate("/admin");
   };
 
   return (
